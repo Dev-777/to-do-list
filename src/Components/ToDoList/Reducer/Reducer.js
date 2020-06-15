@@ -24,6 +24,7 @@ export const Reducer = ( state = initialState, action ) =>
 
 
       case 'element':
+
         const localState_element     = {
           lastTextAreaId : action.elementTextAreaId,
           addToggle      : state.addToggle,
@@ -33,17 +34,20 @@ export const Reducer = ( state = initialState, action ) =>
         localState_element.addToggle = true;
         action.elementTextAreaValue  = state.lastTextAreaValue;
 
-        localState_element.undoRedo.push( action );
+        const actionClone = Object.assign( {}, action );
+        localState_element.undoRedo.push( actionClone );
 
         return { ...state, ...localState_element };
 
 
       case 'addToggle':
-        const localState_addToggle             = {
+
+        const localState_addToggle = {
           addToggle         : state.addToggle,
           lastTextAreaId    : state.lastTextAreaId,
           lastTextAreaValue : state.lastTextAreaValue,
         };
+
         localState_addToggle.lastTextAreaId    = action.lastTextAreaId;
         localState_addToggle.lastTextAreaValue = action.lastTextAreaValue;
         localState_addToggle.addToggle         = true;

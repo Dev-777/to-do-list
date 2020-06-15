@@ -37,13 +37,12 @@ class ToDoList extends Component {
                 $( '#toDoList_BasicList' )
                   .append( '<div  class="d-flex test">' +
                              '<input type="checkbox" class="checkBox"/>' +
-                             '<textarea readonly></textarea>' +
+                             '<textarea readonly/>' +
                              '<div id="right">\n' +
                              '                    <i class="fas fa-trash-alt"/>\n' +
                              '                    <i id="editListElement" class="fas fa-edit"/>\n' +
                              '                  </div>' +
                              '</div>' );
-
               } )();
 
               ( function ()
