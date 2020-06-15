@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './app.css';
 import $                    from 'jquery';
 import { connect }          from 'react-redux';
+import { element, toggle }  from '../Actions/Actions';
 
 
 
@@ -13,46 +14,79 @@ class ToDoList extends Component {
     let props = this.props;
     ( function ()
     {
-      let int    = 0;
-      let strId  = 'element';
-      let toggle = false;
+      let elementId       = 'element';
+      let checkBoxId      = 'checkBox';
+      let elementTextArea = 'elementTextArea';
+      let int             = 0;
+      let toggle1         = false;
 
 
       $( '#inputAndButtonDiv > button' )
         .on( 'click', () =>
         {
-          if ( toggle )
+          if ( toggle1 )
             {
-              let idGenerator = strId + int ++;
-              toggle          = false;
+              let elementIdGenerator         = elementId + int ++;
+              let checkBoxIdGenerator        = checkBoxId + int ++;
+              let elementTextAreaIdGenerator = elementTextArea + int ++;
+              toggle1                        = false;
 
-              $( '#toDoList_BasicList' )
-                .append( '<div  class="d-flex test">' +
-                           '<input type="checkbox" id="crossОut"/>' +
-                           '<textarea id="contentTextArea" readonly></textarea>' +
-                           '<div id="right">\n' +
-                           '                    <i class="fas fa-trash-alt"/>\n' +
-                           '                    <i id="editListElement" class="fas fa-edit"/>\n' +
-                           '                  </div>' +
-                           '</div>' );
 
-              $( '#toDoList_BasicList > div:last-child' )
-                .attr( 'id', idGenerator );
+              ( function ()
+              {
+                $( '#toDoList_BasicList' )
+                  .append( '<div  class="d-flex test">' +
+                             '<input type="checkbox" class="checkBox"/>' +
+                             '<textarea readonly></textarea>' +
+                             '<div id="right">\n' +
+                             '                    <i class="fas fa-trash-alt"/>\n' +
+                             '                    <i id="editListElement" class="fas fa-edit"/>\n' +
+                             '                  </div>' +
+                             '</div>' );
 
-              props.dispatch( {
-                                type : 'elementId',
-                                id   : idGenerator,
-                              } );
+              } )();
+
+              ( function ()
+              {
+                $( '#toDoList_BasicList > div:last-child' )
+                  .attr( 'id', elementIdGenerator );
+                $( '#toDoList_BasicList > div:last-child > textarea' )
+                  .attr( 'id', elementTextAreaIdGenerator );
+              } )();
+
+
+              ( function ()
+              {
+                toggle.lastTextAreaId    = elementTextAreaIdGenerator;
+                toggle.lastTextAreaValue = $( '#inputAndButtonDiv > textarea' )
+                  .val();
+                props.dispatch( toggle );
+
+                element.elementId            = elementIdGenerator;
+                element.elementTextAreaId    = elementTextAreaIdGenerator;
+                element.elementTextAreaValue = $( '#inputAndButtonDiv > textarea' )
+                  .val();
+                props.dispatch( element );
+
+
+              } )();
+
 
               $( '#inputAndButtonDiv > textarea' )
                 .val( '' );
             }
+
+
         } );
-      $( '#inputAndButtonDiv > textarea' )
-        .on( 'change', () =>
-        {
-          toggle = true;
-        } );
+      ( function ()
+      {
+        $( '#inputAndButtonDiv > textarea' )
+          .on( 'change', () =>
+          {
+            toggle1 = true;
+          } );
+
+      } )();
 
 
     } )();
@@ -62,13 +96,30 @@ class ToDoList extends Component {
 
   componentDidUpdate( prevProps, prevState, snapshot )
   {
+    let props = this.props;
 
-    let k = $( '#inputAndButtonDiv > textarea' )
-      .val();
-    $( `#${ this.props.state.id } >textarea` )
-      .html( `${ k }` );
+    ( function ()
+    {
+      if ( props.state.lastTextAreaId )
+        {
+          $( `#${ props.state.lastTextAreaId }` )
+            .val( `${ props.state.lastTextAreaValue }` );
+        }
+    } )();
 
-    console.log( this.props.state, 'Tamarikik' );
+    ( function ()
+    {
+      if ( props.state.addToggle )
+        {
+          props.dispatch( {
+                            type              : 'entryFieldValue',
+                            addToggle         : false,
+                            lastTextAreaValue : $( '#inputAndButtonDiv > textarea' )
+                              .val(),
+                          } );
+        }
+    } )();
+
 
   }
 
