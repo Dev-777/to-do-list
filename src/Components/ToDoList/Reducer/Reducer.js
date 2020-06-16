@@ -1,60 +1,30 @@
 const initialState = {
-  lastTextAreaId    : '',
-  lastTextAreaValue : '',
-  addToggle         : false,
-  undoRedo          : [],
+  inputValue       : '',
+  newElementParams : {},
+  toDoList         : [],
+
 };
 
 export const Reducer = ( state = initialState, action ) =>
 {
   switch ( action.type )
     {
+      case 'newElement':
+        const localState_newElement      = {
+          inputValue : state.inputValue,
+        };
+        localState_newElement.inputValue = action.value;
 
-      case 'entryFieldValue':
-        const localState_entryFieldValue = {
-          lastTextAreaValue : state.lastTextAreaValue,
-          addToggle         : state.addToggle,
+        return { ...state, ...localState_newElement };
+
+      case 'add':
+        const localState_add = {
+          inputValue       : state.inputValue,
+          newElementParams : state.newElementParams,
+          toDoList         : state.toDoList,
         };
 
-        localState_entryFieldValue.addToggle         = false;
-        localState_entryFieldValue.lastTextAreaValue = action.lastTextAreaValue;
-
-
-        return { ...state, ...localState_entryFieldValue };
-
-
-      case 'element':
-
-        const localState_element     = {
-          lastTextAreaId : action.elementTextAreaId,
-          addToggle      : state.addToggle,
-          undoRedo       : state.undoRedo,
-
-        };
-        localState_element.addToggle = true;
-        action.elementTextAreaValue  = state.lastTextAreaValue;
-
-        const actionClone = Object.assign( {}, action );
-        localState_element.undoRedo.push( actionClone );
-
-        return { ...state, ...localState_element };
-
-
-      case 'addToggle':
-
-        const localState_addToggle = {
-          addToggle         : state.addToggle,
-          lastTextAreaId    : state.lastTextAreaId,
-          lastTextAreaValue : state.lastTextAreaValue,
-        };
-
-        localState_addToggle.lastTextAreaId    = action.lastTextAreaId;
-        localState_addToggle.lastTextAreaValue = action.lastTextAreaValue;
-        localState_addToggle.addToggle         = true;
-
-        return {
-          ...state, ...localState_addToggle,
-        };
+        return { ...state, ...localState_add };
 
 
       default:

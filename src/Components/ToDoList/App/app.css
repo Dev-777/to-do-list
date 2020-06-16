@@ -8,100 +8,12 @@
 
 }
 
-/*sectionOne___Start*/
-#sectionOne {
-    width          : 400px;
-    height         : 150px;
-    border         : 1px solid;
-    padding        : 5px;
-    flex-direction : column;
-}
-
-#inputAndButtonDiv {
-    width           : 380px;
-    height          : 45px;
-    justify-content : space-between;
-}
-
-#inputAndButtonDiv > textarea {
+#input {
     width  : 300px;
     height : 35px;
-    resize : none;
-}
-
-
-#inputAndButtonDiv > button {
-    width  : 70px;
-    height : 35px;
-}
-
-#toDoList_Tool {
-    width  : 380px;
-    height : 45px;
-    border : 1px solid;
-}
-
-/*sectionOne_____END*/
-
-#sectionTwo {
-    width       : 690px;
-    border      : 1px solid;
-    margin-left : 10px;
 
 }
 
-#toDoList_FavoriteList {
-    width      : 580px;
-    visibility : hidden;
-    padding    : 5px;
-}
-
-#toDoList_BasicList {
-    width   : 580px;
-    padding : 5px;
-}
-
-/**/
-.test {
-    width          : 580px;
-    height         : 70px;
-    border         : 1px solid;
-    flex-direction : row;
-    padding        : 5px;
-    border-radius  : 8px;
-    margin-top     : 5px;
-}
-
-.test > textarea {
-    padding-left : 10px;
-    width        : 500px;
-    height       : 59px;
-    font-size    : 15px;
-    line-height  : 55px;
-    border       : none;
-    resize       : none;
-}
-
-
-.checkBox {
-    width  : 40px;
-    height : 59px;
-}
-
-.test > input[type=checkbox]:checked + .test > textarea {
-    text-decoration : line-through;
-}
-
-#right {
-    width  : 59px;
-    height : 59px;
-    border : 1px solid;
-}
-
-#right > i {
-    width  : 15px;
-    height : 15px;
-}
 
 
 
