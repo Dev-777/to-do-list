@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import './app.css';
 import { connect }          from 'react-redux';
-import Input                from '../../Input/Input';
+import Input                from '../Components/Input/Input';
+import { add }              from '../Actions/Actions';
+import List                 from '../Components/List/List';
 
 
 
@@ -23,6 +25,7 @@ class ToDoList extends Component {
       }
     if ( e.keyCode === 13 )
       {
+
         this.addToDo();
       }
   };
@@ -30,27 +33,29 @@ class ToDoList extends Component {
 
   addToDo = () =>
   {
-    const newElementParams = {
-      id    : new Date().valueOf(),
-      value : this.props.state.inputValue,
-    };
+    add.id    = new Date().valueOf();
+    add.value = this.props.state.inputValue;
+    this.props.dispatch( add );
+  };
+
+  deleteElement = ( e ) =>
+  {
+
+    this.props.dispatch( {
+                           type  : 'delete',
+                           delId : e.target.parentNode.parentNode.id,
+                         } );
+  };
+
+  undo = () =>
+  {
+
+    if ( this.props.state.undoRedo.undo.length )
+      {
+        this.props.dispatch( { type : 'undo' } );
+      }
 
 
-
-    const toDoList = this.props.state.toDoList;
-
-    toDoList.push( newElementParams );
-    const allToDos = this.state.allToDos;
-    const addCount = allToDos + 1;
-    this.setState( {
-                     newToDo  : '',
-                     toDoList,
-                     allToDos : addCount,
-                   } );
-
-
-
-    this.props.dispatch({type:'add'})
   };
 
 
@@ -61,9 +66,16 @@ class ToDoList extends Component {
 
         <Input
           updateInput={ this.updateInput }
-          // addToDo={ this.addToDo }
           enterEvent={ this.enterEvent }
         />
+        <List
+          del={ this.deleteElement }
+        />
+        <i
+          onClick={ this.undo }
+
+          className="fas fa-undo"/>
+        <i className="fas fa-redo"/>
 
 
       </div>

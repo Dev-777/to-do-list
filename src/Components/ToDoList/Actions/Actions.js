@@ -1,7 +1,3 @@
-export const element = {
-  type : 'element',
+export const add = {
+  type : 'add',
 };
-export const toggle = {
-  type: 'addToggle',
-
-}
