@@ -49,13 +49,18 @@ class ToDoList extends Component {
 
   undo = () =>
   {
-
     if ( this.props.state.undoRedo.undo.length )
       {
         this.props.dispatch( { type : 'undo' } );
       }
+  };
 
-
+  redo = () =>
+  {
+    if ( this.props.state.undoRedo.redo.length )
+      {
+        this.props.dispatch( { type : 'redo' } );
+      }
   };
 
 
@@ -73,9 +78,10 @@ class ToDoList extends Component {
         />
         <i
           onClick={ this.undo }
-
           className="fas fa-undo"/>
-        <i className="fas fa-redo"/>
+        <i
+          onClick={ this.redo }
+          className="fas fa-redo"/>
 
 
       </div>

@@ -83,11 +83,23 @@ export const Reducer = ( state = initialState, action ) =>
         );
         localState_undo.undoRedo.redo = [ ...localState_undo.undoRedo.undo ];
         localState_undo.undoRedo.undo = [];
-
+        localState_undo.undoRedo.undo = [];
         return { ...state, ...localState_undo };
 
+      case 'redo':
+        const localState_redo = {
+          toDoList : state.toDoList,
+          undoRedo : {
+            undo : state.undoRedo.undo,
+            redo : state.undoRedo.redo,
+          },
+        };
 
+        localState_redo.toDoList.splice( localState_redo.undoRedo.redo[ 1 ], 1 );
+        localState_redo.undoRedo.undo = [ ...localState_redo.undoRedo.redo ];
+        localState_redo.undoRedo.redo = [];
 
+        return { ...state, ...localState_redo };
 
 
       default:
