@@ -6,7 +6,7 @@ const initialState = {
     undo : [],
     redo : [],
   },
-  toggle           : false,
+  toggle           : true,
 
 };
 
@@ -102,7 +102,40 @@ export const Reducer = ( state = initialState, action ) =>
 
         return { ...state, ...localState_redo };
 
+      case 'updateSave':
+        const localState_updateSave = {
+          toDoList : state.toDoList,
+        };
 
+        for ( let i = 0 ; i < localState_updateSave.toDoList.length ; i ++ )
+          {
+            if ( localState_updateSave.toDoList[ i ].id === + action.id )
+              {
+                localState_updateSave.toDoList[ i ].value = action.value;
+                break;
+              }
+
+          }
+
+
+        return { ...state, ...localState_updateSave };
+
+      case 'toggle':
+        const localState_toggle = {
+          toggle : state.toggle,
+        };
+
+        if ( action.val )
+          {
+            localState_toggle.toggle = true;
+          }
+        else
+          {
+            localState_toggle.toggle = false;
+          }
+
+
+        return { ...state, ...localState_toggle };
 
 
       default:

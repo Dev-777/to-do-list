@@ -11,6 +11,8 @@ class ToDoList extends Component {
   constructor( props )
   {
     super( props );
+    this.butSaveUpdate = createRef();
+    this.addButRef     = createRef();
 
   }
 
@@ -26,9 +28,10 @@ class ToDoList extends Component {
   {
     if ( e.target.value === '' )
       {
+
         return false;
       }
-    if ( e.keyCode === 13 )
+    if ( e.keyCode === 13 && this.props.state.toggle )
       {
 
         this.addToDo();
@@ -37,7 +40,7 @@ class ToDoList extends Component {
 
   addButton = ( e ) =>
   {
-    if ( this.props.state.inputValue )
+    if ( this.props.state.inputValue && this.props.state.toggle )
       {
         this.addToDo();
       }
@@ -51,19 +54,10 @@ class ToDoList extends Component {
     this.props.dispatch( add );
   };
 
-  deleteElement = ( e ) =>
-  {
-
-    this.props.dispatch( {
-                           type  : 'delete',
-                           delId : e.target.parentNode.parentNode.id,
-                         } );
-  };
-
 
   undo = () =>
   {
-    if ( this.props.state.undoRedo.undo.length )
+    if ( this.props.state.undoRedo.undo.length && this.props.state.toggle )
       {
         this.props.dispatch( { type : 'undo' } );
       }
@@ -71,7 +65,7 @@ class ToDoList extends Component {
 
   redo = () =>
   {
-    if ( this.props.state.undoRedo.redo.length )
+    if ( this.props.state.undoRedo.redo.length && this.props.state.toggle )
       {
         this.props.dispatch( { type : 'redo' } );
       }
@@ -90,6 +84,7 @@ class ToDoList extends Component {
         <button
           id='add'
           onClick={ this.addButton }
+          ref={ this.addButRef }
         >Add
         </button>
 
@@ -101,11 +96,15 @@ class ToDoList extends Component {
             onClick={ this.redo }
             className="fas fa-redo"/>
         </div>
-        <button id='saveUpdate'>Save/Update</button>
+        <button id='saveUpdate'
+                hidden
+                ref={ this.butSaveUpdate }
+        >Save/Update
+        </button>
 
         <List
-          del={ this.deleteElement }
-         
+          saveButRef={ this.butSaveUpdate }
+          addButRef={ this.addButRef }
         />
 
 
