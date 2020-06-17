@@ -1,7 +1,6 @@
 import React, { Component, createRef } from 'react';
 import './app.css';
 import { connect }                     from 'react-redux';
-import Input                           from '../Components/Input/Input';
 import { add }                         from '../Actions/Actions';
 import List                            from '../Components/List/List';
 
@@ -13,6 +12,7 @@ class ToDoList extends Component {
     super( props );
     this.butSaveUpdate = createRef();
     this.addButRef     = createRef();
+    this.inpRef        = createRef();
 
   }
 
@@ -77,10 +77,20 @@ class ToDoList extends Component {
     return (
       <div id='toDoList_Main' className='d-flex'>
 
-        <Input
-          updateInput={ this.updateInput }
-          enterEvent={ this.enterEvent }
+
+        <input
+          id='input'
+          type='text'
+          placeholder='type to do'
+          value={ this.props.state.inputValue }
+          onChange={ e => this.updateInput( e.target.value ) }
+          ref={ this.inpRef }
+          onKeyDown={ this.enterEvent }
+          className='input'
+          autoFocus
         />
+
+
         <button
           id='add'
           onClick={ this.addButton }
@@ -105,6 +115,7 @@ class ToDoList extends Component {
         <List
           saveButRef={ this.butSaveUpdate }
           addButRef={ this.addButRef }
+          inpRef={ this.inpRef }
         />
 
 

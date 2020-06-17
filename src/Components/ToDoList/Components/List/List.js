@@ -12,11 +12,14 @@ class List extends Component {
 
   edit = ( e ) =>
   {
-    let inputText  = e.target.parentElement.parentElement.children[ 1 ];
-    let checkbox   = e.target.parentElement.parentElement.children[ 0 ];
+    let inputText = e.target.parentElement.parentElement.children[ 1 ];
+    let checkbox  = e.target.parentElement.parentElement.children[ 0 ];
+    let elementId = e.target.parentElement.parentElement.id;
+
     let deleteIcon = e.target.parentElement.children[ 0 ];
     let val        = inputText.value;
     let addButRef  = this.props.addButRef.current;
+    let inpRef     = this.props.inpRef.current;
 
 
     if ( this.props.state.toggle )
@@ -28,10 +31,8 @@ class List extends Component {
                              } );
 
         this.props.saveButRef.current.removeAttribute( 'hidden' );
-        deleteIcon.style.pointerEvents = 'none';
         inputText.removeAttribute( 'readonly' );
         checkbox.setAttribute( 'disabled', 'disabled' );
-        addButRef.setAttribute( 'disabled', 'disabled' );
 
 
         this.props.saveButRef.current.onclick = () =>
@@ -40,6 +41,16 @@ class List extends Component {
                                  type : 'toggle',
                                  val  : true,
                                } );
+          this.props.dispatch( {
+                                 type  : 'updateSave',
+                                 id    : elementId,
+                                 value : inputText.value,
+                               } );
+
+
+          this.props.saveButRef.current.setAttribute( 'hidden', 'hidden' );
+          inputText.setAttribute( 'readonly', 'readonly' );
+          checkbox.removeAttribute( 'disabled', 'disabled' );
 
 
           // if ( inputText.value !== val )
