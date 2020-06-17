@@ -6,6 +6,7 @@ const initialState = {
     undo : [],
     redo : [],
   },
+  toggle           : false,
 
 };
 
@@ -100,6 +101,8 @@ export const Reducer = ( state = initialState, action ) =>
         localState_redo.undoRedo.redo = [];
 
         return { ...state, ...localState_redo };
+
+
 
 
       default:

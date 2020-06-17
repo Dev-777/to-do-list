@@ -1,13 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import './app.css';
-import { connect }          from 'react-redux';
-import Input                from '../Components/Input/Input';
-import { add }              from '../Actions/Actions';
-import List                 from '../Components/List/List';
+import { connect }                     from 'react-redux';
+import Input                           from '../Components/Input/Input';
+import { add }                         from '../Actions/Actions';
+import List                            from '../Components/List/List';
 
 
 
 class ToDoList extends Component {
+  constructor( props )
+  {
+    super( props );
+
+  }
 
   updateInput = ( value ) =>
   {
@@ -17,7 +22,7 @@ class ToDoList extends Component {
                          } );
   };
 
-  enterEvent = e =>
+  enterEvent = ( e ) =>
   {
     if ( e.target.value === '' )
       {
@@ -26,6 +31,14 @@ class ToDoList extends Component {
     if ( e.keyCode === 13 )
       {
 
+        this.addToDo();
+      }
+  };
+
+  addButton = ( e ) =>
+  {
+    if ( this.props.state.inputValue )
+      {
         this.addToDo();
       }
   };
@@ -46,6 +59,7 @@ class ToDoList extends Component {
                            delId : e.target.parentNode.parentNode.id,
                          } );
   };
+
 
   undo = () =>
   {
@@ -73,15 +87,26 @@ class ToDoList extends Component {
           updateInput={ this.updateInput }
           enterEvent={ this.enterEvent }
         />
+        <button
+          id='add'
+          onClick={ this.addButton }
+        >Add
+        </button>
+
+        <div id='undoRedoIcons'>
+          <i
+            onClick={ this.undo }
+            className="fas fa-undo"/>
+          <i
+            onClick={ this.redo }
+            className="fas fa-redo"/>
+        </div>
+        <button id='saveUpdate'>Save/Update</button>
+
         <List
           del={ this.deleteElement }
+         
         />
-        <i
-          onClick={ this.undo }
-          className="fas fa-undo"/>
-        <i
-          onClick={ this.redo }
-          className="fas fa-redo"/>
 
 
       </div>

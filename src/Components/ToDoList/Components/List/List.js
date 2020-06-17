@@ -1,42 +1,63 @@
-import React       from 'react';
-import { connect } from 'react-redux';
+import React, { Component, createRef } from 'react';
+import { connect }          from 'react-redux';
 
 
 
-function List( props )
-{
+class List extends Component {
+  constructor( props )
+  {
+    super( props );
+    this.text = createRef();
+  }
+
+  edit = ( e ) =>
+  {
+    console.log( e.target.value );
+  };
 
 
-  return (
-    <div className='list'>
-      <h2>To Do List</h2>
-      {
-        props.state.toDoList ?
-          props.state.toDoList.map( item =>
-                                    {
-                                      return (
+  render()
+  {
+    return (
 
-                                        <div
-                                          key={ item.id }
-                                          id={ item.id }
-                                          className='text-div'
-                                        >
-                                          <input type="checkbox"/>
-                                          <div id='text'>
-                                            { item.value }
-                                          </div>
-                                          <div>
-                                            <i
-                                              onClick={ props.del }
-                                              className="fas fa-trash-alt"/>
-                                            <i className="far fa-edit"/>
-                                          </div>
+      <div className='list'>
+        <h2>To Do List</h2>
+        {
+          this.props.state.toDoList ?
+            this.props.state.toDoList.map( item =>
+                                           {
+                                             return (
 
-                                        </div>
-                                      );
-                                    } ) : null }
-    </div>
-  );
+                                               <div
+                                                 key={ item.id }
+                                                 id={ item.id }
+                                                 className='text-div'
+                                               >
+                                                 <input type="checkbox"/>
+                                                 <input
+                                                   id='text'
+                                                   defaultValue={ item.value }
+                                                   readOnly
+                                                 />
+                                                 <div>
+                                                   <i
+                                                     onClick={ this.props.del }
+                                                     className="fas fa-trash-alt"/>
+                                                   <i
+                                                     onClick={ this.props.edit }
+                                                     className="far fa-edit"/>
+                                                 </div>
+
+                                               </div>
+                                             );
+                                           } ) : null }
+      </div>
+    );
+  }
+
+
+
+  ;
 }
 
 
