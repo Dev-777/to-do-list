@@ -76,7 +76,7 @@ class ToDoList extends Component {
             >
               Add
             </button>
-            <div id="undoRedoIcons d-flex ml-2">
+            <div className="undoRedoIcons d-flex ml-2">
               <i onClick={this.undo} className="fas fa-undo" />
               <i onClick={this.redo} className="fas fa-redo" />
             </div>

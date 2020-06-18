@@ -7,7 +7,6 @@ const initialState = {
     redo: [],
   },
   toggle: true,
-  updateElementText: [],
 };
 export const Reducer = (state = initialState, action) => {
   switch (action.type) {

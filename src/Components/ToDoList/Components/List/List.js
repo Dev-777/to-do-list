@@ -46,6 +46,7 @@ class List extends Component {
         <button
           onClick={this.saveUpdateButton}
           id="saveUpdate"
+          className="btn btn-success"
           hidden
           ref={this.saveUpdateRef}
         >
