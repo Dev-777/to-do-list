@@ -1,46 +1,34 @@
 import React, { Component, createRef } from "react";
 import { connect } from "react-redux";
-import { deleteElem, toggle, updateSave } from "../../Actions/Actions";
+import { deleteElem, toggle, saveUpdate } from "../../Actions/Actions";
+import "../../../style/toDoList.css";
 
 class List extends Component {
   constructor(props) {
     super(props);
-    this.updateSaveRef = createRef();
+    this.saveUpdateRef = createRef();
   }
 
   edit = (e, element) => {
     this.inputText = e.target.parentElement.parentElement.children[1];
     this.element = element;
-
     if (this.props.state.toggle) {
       toggle.val = false;
       this.props.dispatch(toggle);
-      this.updateSaveRef.current.removeAttribute("hidden");
+      this.saveUpdateRef.current.removeAttribute("hidden");
       this.inputText.removeAttribute("readonly");
-
-      // this.props.saveButRef.current.onclick = () => {
-      //   toggle.val = true;
-      //   this.props.dispatch(toggle);
-      //   updateSave.id = elementId;
-      //   updateSave.value = inputText.value;
-      //   this.props.dispatch(updateSave);
-      //   this.props.saveButRef.current.setAttribute("hidden", "hidden");
-      //   inputText.setAttribute("readonly", "readonly");
-      //   checkbox.removeAttribute("disabled", "disabled");
-      // };
     }
   };
 
-  updateSaveButton = () => {
+  saveUpdateButton = () => {
     toggle.val = true;
     this.props.dispatch(toggle);
-
     if (this.inputText.value !== this.element.value) {
-      updateSave.id = this.element.id;
-      updateSave.value = this.inputText.value;
-      this.props.dispatch(updateSave);
+      saveUpdate.id = this.element.id;
+      saveUpdate.value = this.inputText.value;
+      this.props.dispatch(saveUpdate);
     }
-    this.updateSaveRef.current.setAttribute("hidden", "hidden");
+    this.saveUpdateRef.current.setAttribute("hidden", "hidden");
     this.inputText.setAttribute("readonly", "readonly");
   };
 
@@ -56,25 +44,30 @@ class List extends Component {
       <div className="list">
         <h2>To Do List</h2>
         <button
-          onClick={this.updateSaveButton}
-          id="updateSave"
+          onClick={this.saveUpdateButton}
+          id="saveUpdate"
           hidden
-          ref={this.updateSaveRef}
+          ref={this.saveUpdateRef}
         >
           Save/Update
         </button>
         {this.props.state.toDoList
           ? this.props.state.toDoList.map((item) => {
               return (
-                <div key={item.id} id={item.id} className="text-div">
+                <div
+                  key={item.id}
+                  id={item.id}
+                  className="form-group d-flex align-items-center justify-content-between text-div"
+                >
                   <input type="checkbox" />
                   <input
                     id="text"
                     defaultValue={item.value}
                     ref={this.text}
                     readOnly="readonly"
+                    className="form-control"
                   />
-                  <div>
+                  <div className="list-edit d-flex justify-content-between">
                     <i
                       onClick={() => this.deleteElement(item.id)}
                       className="fas fa-trash-alt"

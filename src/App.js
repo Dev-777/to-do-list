@@ -1,5 +1,5 @@
 import React from "react";
-import ToDoList from "./Components/ToDoList/App/App";
+import ToDoList from "./Components/ToDoList/Components/ToDoList/ToDoList";
 import { Provider } from "react-redux";
 import { store } from "./Components/ToDoList/Store/Store";
 

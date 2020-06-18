@@ -1,0 +1,110 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #EAEDED;
+    background-image: url("../Pictures/seamless-pattern-colored-pencils-vector-876060.jpg");
+    background-size: contain;
+}
+#toDoList_Main {
+    height         : 600px;
+    border         : 1px solid #ccc;
+    box-shadow: 0px 0px 3px #ccc;
+    margin         : 10px auto;
+    flex-direction : row;
+    background-color: #fff;
+}
+
+.list {
+    border-left  : 1px solid #ccc;
+    margin  : 0 auto;
+    padding : 10px;
+    min-height: 100%;
+    transition: all .25s ease;
+}
+.list > h2 {
+    margin-left : 150px;
+    display     : inline-block;
+}
+
+.list > div {
+    width          : 100%;
+    margin-top     : 5px;
+    display        : flex;
+    flex-direction : row;
+
+}
+
+#text {
+    width         : 320px;
+    margin-left   : 5px;
+    line-height   : 49px;
+    padding-left  : 5px;
+    border-radius : 8px;
+}
+
+
+.list > div > div:last-of-type {
+    width: 90px;
+}
+
+#undoRedoIcons > i {
+    font-size : 25px;
+}
+.text-div > input[type = checkbox]:checked + #text {
+    text-decoration : line-through !important;
+}
+
+#add {
+    width  : 50px;
+    height : 30px;
+}
+/* edit */
+
+.list-wrap{
+    height: 100%;
+}
+.input-wrap{
+    padding: 10px;
+}
+.undoRedoIcons{
+    font-size: 22px;
+}
+.undoRedoIcons i{
+    margin-right: 10px;
+    cursor: pointer;
+    transition: all .25s ease;
+}
+.undoRedoIcons i:nth-child(1):hover{
+    transform: rotate(-90deg);
+}
+.undoRedoIcons i:nth-child(2):hover{
+    transform: rotate(90deg);
+}
+.list-edit{
+    width: 100%;
+    font-size: 30px;
+}
+.list-edit i:nth-child(1){
+    cursor: pointer;
+    transition: all .25s ease;
+    color: #ff4700;
+}
+.list-edit i:nth-child(1):hover{
+    transform: scale(1.2);
+    color: #e04002;
+}
+.list-edit i:nth-child(2){
+    cursor: pointer;
+    transition: all .85s ease;
+    color: #2f5ac3;
+}
+.list-edit i:nth-child(2):hover{
+    transform: rotateY(180deg);
+    color: #002580;
+}
+#text{
+    font-size: 20px;
+}
